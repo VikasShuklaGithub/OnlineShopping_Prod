@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="common-header">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<!--  <link href="/css/bootstrap.min.css" rel="stylesheet" />
+  
+<link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet" />
+
+<link th:href="@{/css/dataTables.bootstrap4.min.css}" rel="stylesheet" />
+ -->
+<!-- <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" /> -->
+
+
+<!-- <link href="/css/non-responsive.css" rel="stylesheet" /> -->
+<!--   <link href="/css/bootstrap.min.css" rel="stylesheet" /> -->
+  <link href="/css/style.css" rel="stylesheet" />
+  
+  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({selector:'textarea'});</script>
+
+</head> 
+<body>
+<div th:fragment="navbar">
+<nav class="navbar navbar-light bg-warning">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" th:href="@{/}">Online Shopping</a>
+    </div>
+    <ul class="nav navbar-nav">
+<!--       <li class="active"><a th:href="@{/}">Home</a></li> -->
+  
+  
+    <!--  for Men -->
+      <li class="active"><a  sec:authorize="hasAnyAuthority('ROLE_USER')" th:href="@{/showMenPage}">Men</a></li>
+       <!--  <ul class="dropdown-menu">
+
+     
+          <li><a th:href="@{/showMenPage}">Top Wear</a></li>
+          <li><a th:href="@{/showWomenPage}">Bottom Wear</a></li>
+          <li><a th:href="@{/showKidPage}">Inner Wear</a></li>
+           <li><a th:href="@{/showKidPage}">Others</a></li>
+        </ul> -->
+      
+      
+     <!--  for Women -->
+      
+            <li class="active"><a sec:authorize="hasAnyAuthority('ROLE_USER')" th:href="@{/showWomenPage}">Women</a></li>
+       <!--  <ul class="dropdown-menu">
+
+     
+          <li><a th:href="@{/showMenPage}">Indian Wear</a></li>
+          <li><a th:href="@{/showWomenPage}">Westren Wear</a></li>
+          <li><a th:href="@{/showKidPage}">Lingerie and SleepWear</a></li>
+           <li><a th:href="@{/showKidPage}">Others</a></li>
+        </ul> -->
+      </li>
+      
+        <!--  for Kids -->
+      
+            <!-- <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Kids <span class="caret"></span></a> -->
+            <li class="active"><a sec:authorize="hasAnyAuthority('ROLE_USER')" th:href="@{/showKidPage}">Kids</a></li>
+       <!--  <ul class="dropdown-menu">
+
+     
+          <li><a th:href="@{/showMenPage}">Boys Clothing</a></li>
+          <li><a th:href="@{/showWomenPage}">Girls Clothing</a></li>
+          <li><a th:href="@{/showKidPage}">Others</a></li>
+        </ul> -->
+      </li>
+      
+      
+       <!--  for Admin Page -->
+      
+            <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin Room <span class="caret"></span></a> 
+          
+        <ul class="dropdown-menu">
+
+     
+          <li><a sec:authorize="hasAnyAuthority('ROLE_ADMIN')" th:href="@{/showAddProductPage}">Add Items</a></li>
+          <li><a sec:authorize="hasAnyAuthority('ROLE_ADMIN')" th:href="@{/productList}">List of Items</a></li> 
+          <li><a sec:authorize="hasAnyAuthority('ROLE_ADMIN')" th:href="@{/shoppingCart/returnFromCartItemList}">List of Return Items</a></li>
+          <li><a sec:authorize="hasAnyAuthority('ROLE_ADMIN')" th:href="@{/showUserList}">User List</a></li> 
+          
+         <li class="dropdown-submenu">
+        <a sec:authorize="hasAnyAuthority('ROLE_ADMIN')" class="test" tabindex="-1" href="#">Reports<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a tabindex="-1" href="/reportProduct">Product Report</a></li>
+          <li><a tabindex="-1" href="/reportOrder">Order Report</a></li>
+          <li><a tabindex="-1" href="/reportReturnOrder">Return Order Report</a></li>
+        </ul>
+      </li>
+          
+          
+          <!-- <li><a sec:authorize="hasAnyAuthority('ROLE_ADMIN')" th:href="@{/reportPage}">Reports</a></li>  -->
+        
+        </ul>
+      </li>
+      
+      
+     <!--  <li>	
+      <form class="navbar-form">
+					<div class="form-group">
+						<input type="text" name="keyword" class="form-control"
+							placeholder="Search " />
+					</div>
+					<button type="submit" class="btn btn-primary btn-block">Search</button>
+				</form>
+	 </li> -->
+<!--       <li><a href="#">Contact Us</a></li> -->
+    </ul>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+<!--       <li><a th:href="@{'/signUp'}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
+      <li><a  sec:authorize="isAnonymous()" th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span>My Account</a></li>
+      
+     
+      
+      <li><a th:href="@{/myProfile}" sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></a></li>
+       <li><a sec:authorize="isAuthenticated()" th:href="@{/shoppingCart/cart}">Add To Cart</a></li>
+      <li><a  sec:authorize="isAuthenticated()" th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+      
+      
+    </ul>
+    
+  </div>
+</nav>
+  </div>
+
+
+
+<!-- FOOTER -->
+
+<div th:fragment="footer">
+			<br /><br />
+			<footer>
+			
+				<div class="row">
+				
+					<div class="col-xs-3 footerleft">
+					
+						<div class="logofooter">
+							<a th:href="@{/}"><img class="img-responsive" src="/image/online-shop-logo.jpg" style="width : 150px;" /> </a>
+						</div>
+						
+						<p>Online Shopping Store. <br /> Serving our Customer with the best.</p>
+					</div>
+					
+					<div class="col-xs-3 paddingtop-bottom">
+					
+					<h6 class="heading7">CONTACT</h6>
+						<ul class="post">
+							<p><i class="fa fa-map-pin"></i> 11, 3rd Floor Ram Shyam Apt, A wing, Near Hanuman Nagar </p>
+							<p><i class="fa fa-phone"></i> Phone (India) : 9820642218 / 78</p>
+							<p><i class="fa fa-envelope"></i>Email : vikas.r.shukla@gmail.com </p>
+						</ul>
+
+					</div>
+					
+					<div class="col-xs-3 paddingtop-bottom">
+					
+					<h6 class="heading7">Links</h6>
+						<ul class="footer-ul">
+							<li><a href="#">Privacy Policy</a></li>
+							<li><a href="#">Terms &#38; and Condition</a></li>
+							<li><a href="#">Frequently Asked Questions</a></li>
+						</ul>
+						
+					
+					</div>
+					
+					<div class="col-xs-3 paddingtop-bottom">
+					
+					<h6 class="heading7">CONTACT</h6>
+						<div class="post">
+						
+						<p>Monday-Saturday : 9AM - 11PM</p>
+						<p>Sunday :  10AM - 2PM</p>
+						</div>
+					
+					</div>
+			
+			
+				</div>
+			
+			
+			<div class="copyright">
+			<div class="col-md-6">
+				<p>© 2020 - All Rights Reserved</p>
+			</div>
+			<div class="col-md-6">
+				<ul class="bottom_ul">
+					<li><a href="#">About us</a></li>
+					<li><a href="#">Contact us</a></li>
+				
+				</ul>
+			</div>
+		</div>
+		</footer>
+		</div>  
+
+<!-- FOOTER -->
+
+<div th:fragment="body-bottom-scripts">
+			<script th:src="@{/js/jquery.min.js}"></script>
+	 	<script th:src="@{/js/bootstrap.min.js}"></script> 
+			<script th:src="@{/js/scripts.js}"></script>
+			<script th:src="@{/js/bootbox.min.js}"></script>
+			
+				<script th:src="@{/js/jquery.dataTables.min.js}"></script>
+			<script th:src="@{/js/dataTables.bootstrap.min.js}"></script>
+			
+		</div>
+</body>
+</html>

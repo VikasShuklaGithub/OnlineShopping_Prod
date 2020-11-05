@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<!-- 
+<link href="/css/style.css" rel="stylesheet" /> -->
+
+
+
+</head>
+
+<body>
+<div th:replace="common/header :: navbar"></div>
+
+<div class="container">
+
+
+		<div class="table-responsive">
+			<table id="productListTable"
+				class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<th><input th:id="selectAllProduct" type="checkbox"> 
+						<th>Order ID</th>
+						<th>Order Date</th>
+					<!-- 	<th>Code</th>
+						<th>Price</th>
+						<th>In Stock</th>	 -->												
+					</tr>
+
+				</thead>
+
+				<tbody>
+					<tr data-th-each="order: ${orderList}">
+					
+			 	<td>
+						<input hidden="hidden" name="id" th:value="${order.id}">						
+					</td> 
+
+								
+					
+						<td th:text="${order.id}"></td>
+						<td th:text="${order.orderDate}"></td>
+						<!-- <td th:text="${product.productPriceAfterdiscount}"></td>
+						<td th:text="${product.inStockNumber}"></td>
+						<td>
+						<input hidden="hidden" name="id" th:value="${product.id}"> -->
+						
+						</td>
+					</tr>
+				</tbody>
+				
+				</table>
+
+				</div>
+				
+				<button th:id="deleteSelected" class="btn btn-danger" > Delete Selected Product</button>
+				</div>
+				
+
+		 	<div th:replace="common/header :: body-bottom-scripts" />  
+
+				<script>		
+		$(document).ready( function () {
+		    $('#productListTable').DataTable();
+		} );
+	</script>
+  </body>
+</html>

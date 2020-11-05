@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<title>Add Student</title>
+
+</head>
+<body>
+
+	<div th:replace="common/header :: navbar" />
+	<div class="container">
+
+		<div>
+			<ol class="breadcrumb">
+
+				<li><a th:href="@{/productList}"><i
+						class="fa fa-long-arrow-left" aria-hidden="true"></i>Go Back</a></li>
+						<li><a th:href="@{/updateProduct?id=}+${product.id}">Edit</a></li>
+			</ol>
+		</div>
+
+
+
+		<div class="row">
+
+			<div class="col-xs-3">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<img th:src="@{${product.photImagePath}}" class="img-responsive"
+							style="width: 900px; height: -10%;" />
+					</div>
+				</div>
+			</div>
+
+<!-- <div>
+			<ol class="breadcrumb">
+
+				
+						<li><a th:href="@{/updatePhoto?id=}+${product.id}">Update Photo</a></li>
+			</ol>
+		</div> -->
+
+			<div class="col-xs-9">
+
+				<h3 th:text="${product.productName}"></h3>
+
+				<div class="row">
+					<div class="col-xs-6">
+						<p>
+							<strong>Brand : </strong><span th:text="${product.productBrand}"></span>
+						</p>
+						<p>
+							<strong>Size : </strong><span th:text="${product.productSize}"></span>
+						</p>
+							<p>
+							<strong>Size (in inch) : </strong><span
+								th:text="${product.productSizeInInch}"></span>
+						</p>
+						
+							<p>
+							<strong>For Whom : </strong><span th:text="${product.Gender}"></span>
+						</p>
+						
+						<p>
+							<strong>Type : </strong><span th:text="${product.category}"></span>
+						
+						
+						
+
+					</div>
+
+					<div class="col-xs-6">
+					
+						<p>
+							<strong>Code : </strong><span th:text="${product.productCode}"></span>
+						</p>
+						
+					
+					
+						<p>
+							<strong>List Price : </strong><span
+								th:text="${product.productPrice}"></span>
+						</p>
+						
+							<p>
+							<strong>Discount in (%) : </strong><span
+								th:text="${product.productdiscount}"></span>
+						</p>
+						<p>
+							<strong>Our Price : </strong><span th:text="${product.productPriceAfterdiscount}"></span>
+						</p>
+						
+						</p>
+							<p>
+							<strong>Number of Stock : </strong><span th:text="${product.inStockNumber}"></span>
+						</p>
+					</div>
+					
+					
+				
+				</div>
+				<p>
+					<strong>Description : </strong><span th:utext="${product.productDescription}"></span>
+				</p>
+
+
+			</div>
+		</div>
+		</div>
+		
+		<div th:replace="common/header :: body-bottom-scripts" />  
+
+				<script>		
+		$(document).ready( function () {
+		    $('#productListTable').DataTable();
+		} );
+	</script>
+	</div>
+</body>
+</html>

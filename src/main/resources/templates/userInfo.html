@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<title>Add Student</title>
+
+</head>
+<body>
+
+	<div th:replace="common/header :: navbar" />
+	<div class="container">
+
+		<div>
+			<ol class="breadcrumb">
+
+				<li><a th:href="@{/showUserList}"><i
+						class="fa fa-long-arrow-left" aria-hidden="true"></i>Go Back</a></li>						
+			</ol>
+		</div>
+
+
+
+		<div class="row">
+
+			<!-- <div class="col-xs-3">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<img th:src="@{${product.photImagePath}}" class="img-responsive"
+							style="width: 900px; height: -10%;" />
+					</div>
+				</div>
+			</div> -->
+
+<!-- <div>
+			<ol class="breadcrumb">
+
+				
+						<li><a th:href="@{/updatePhoto?id=}+${product.id}">Update Photo</a></li>
+			</ol>
+		</div> -->
+
+			<div class="col-xs-9">
+
+				<h3 th:text="${user.username}"></h3>
+
+				<div class="row">
+					<div class="col-xs-6">
+						<p>
+							<strong>Name : </strong><span th:text="${user.firstName + ' '+ user.lastName}"></span>
+						</p>
+						<p>
+							<strong>Email : </strong><span th:text="${user.email}"></span>
+						</p>
+							<p>
+							<strong>Phone : </strong><span
+								th:text="${user.phone}"></span>
+						</p>
+						
+							
+						<strong>Shipping Address : </strong> 
+							<tr th:each="userShipping : ${userShippingList}">
+												<td
+													th:text="${userShipping.userShippingStreet1}+' '+${userShipping.userShippingStreet2}+', '+${userShipping.userShippingCity}
+												+', '+${userShipping.userShippingState}"></td>
+												
+											</tr>
+						
+
+					</div>
+					
+					<div>
+			<ol class="breadcrumb">
+
+				<li><a th:href="@{/showOrderList(id=${user.id})}"><i
+						class="fa fa-long-arrow-left" aria-hidden="true"></i>User Orders</a></li>						
+			</ol>
+		</div>
+					
+				
+
+				
+					
+					
+				
+				</div>
+			
+
+
+			</div>
+		</div>
+		</div>
+		
+		<div th:replace="common/header :: body-bottom-scripts" />  
+
+	</div>
+</body>
+</html>

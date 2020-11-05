@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<!-- 
+<link href="/css/style.css" rel="stylesheet" /> -->
+
+
+
+</head>
+
+<body>
+<div th:replace="common/header :: navbar"></div>
+
+<div class="container">
+
+<form class="form-horizontal" th:action="@{/shoppingCart/removeCartItemApproved}"
+				method="post">
+
+		<div class="table-responsive">
+			<table id="returnProductListTable"
+				class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<th><input th:id="selectAllProduct" type="checkbox"> 
+						
+						<th>UserName</th>	
+						<th>Contact</th>	
+						<th>Email</th>
+						<th>Product</th>						
+						<th>Code</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Order ID</th>														
+						<th>Ordered Date</th>
+				
+					</tr>
+
+				</thead>
+
+				<tbody>
+					<tr data-th-each="returnFromCartItem: ${returnFromCartItemList}">
+					
+			 	<td>
+						<input hidden="hidden" name="id" th:value="${returnFromCartItem.product.id}">
+					</td> 
+						<td th:text="${returnFromCartItem.user.username}"></td>
+						<td th:text="${returnFromCartItem.user.phone}"></td>
+						<td th:text="${returnFromCartItem.user.email}"></td>
+						<td th:text="${returnFromCartItem.product.productName}"></td>
+						<td th:text="${returnFromCartItem.product.productCode}"></td>
+						<td th:text="${returnFromCartItem.product.productPriceAfterdiscount}"></td>
+						<td th:text="${returnFromCartItem.cartItem.qty}"></td>
+						
+						<td th:text="${returnFromCartItem.order.id}"></td>
+						<td th:text="${returnFromCartItem.order.orderDate}"></td>
+						<td>
+						<input hidden="hidden" name="id" th:value="${returnFromCartItem.product.id}">
+						<button type="submit" class="btn btn-default">Return</button>
+						
+						
+						
+						</td>
+					</tr>
+				</tbody>
+				
+				</table>
+
+				</div>
+				</form>
+				<button th:id="deleteSelected" class="btn btn-danger" > Delete Selected Product</button>
+				</div>
+				
+
+		 	<div th:replace="common/header :: body-bottom-scripts" />  
+
+				<script>		
+		$(document).ready( function () {
+		    $('#returnProductListTable').DataTable();
+		} );
+	</script>
+  </body>
+</html>

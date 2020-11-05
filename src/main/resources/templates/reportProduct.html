@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+
+</head>
+
+<body>
+<div th:replace="common/header :: navbar"></div>
+
+	<div class="container">
+	
+	
+	
+	
+	<form action="findProducts" method="post">
+											<div class="row">
+												<div class="col-xs-4">
+													<div class="form-group">
+														<label for="fromDate">* From Date</label> <input
+															type="date" class="form-control" id="from"
+															name="from"
+															required="required"	/>
+														
+													</div>
+												</div>
+												<div class="col-xs-4">
+													<div class="form-group">
+														<label for="toDate">* To Date</label> <input
+															type="date" class="form-control" id="to"
+															name="to"
+															required="required"	/>
+														
+													</div>
+												</div>
+												
+											</div>
+
+											<hr />
+											<button type="submit" class="btn btn-primary btn-lg">Generate Data</button>
+												
+												</form>
+	</div>
+
+
+
+<div th:replace="common/header :: body-bottom-scripts" />  
+
+  </body>
+</html>

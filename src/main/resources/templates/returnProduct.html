@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+	
+	
+	<div class="container">
+	
+				<div th:if="${displayOrderDetail}">
+										<div class="row">
+											<div class="col-xs-12">
+												<div class="text-center">
+													<h2>
+														Order Detail for Purchase #<span th:text="${order.id}"></span>
+													</h2>
+												</div>
+												<hr />
+
+												<div class="row">
+													
+													<!-- <div class="col-xs-4">
+														<div class="panel panel-default height">
+															<div class="panel-heading">
+																<strong>Payment Information</strong>
+															</div>
+															<div class="panel-body">
+																<span th:text="${order.payment.holderName}">Card
+																	Name</span><br /> <span th:text="${order.payment.cardNumber}">Card
+																	Number</span><br /> <span>Exp Date:</span><span
+																	th:text="${order.payment.expiryMonth}"></span>/<span
+																	th:text="${order.payment.expiryYear}"></span><br />
+															</div>
+														</div>
+													</div> -->
+													<div class="col-xs-4">
+													
+													<h3><span th:if="${returnDateExceeded}" style="color: red">Oops, Product Cannot be Returned as Order Date <span th:text="${order.orderDate}"></span> 
+													has been Exceeded.</span></h3>
+														<div class="panel panel-default height">
+															<div class="panel-heading">
+																<strong>Shipping Address</strong>
+															</div>
+															<div class="panel-body">
+																<span
+																	th:text="${order.shippingAddress.shippingAddressName}"></span><br />
+																<span
+																	th:text="${order.shippingAddress.shippingAddressStreet1}+' '+${order.shippingAddress.shippingAddressStreet2}"></span><br />
+																<span
+																	th:text="${order.shippingAddress.shippingAddressCity}"></span><br />
+																<span
+																	th:text="${order.shippingAddress.shippingAddressState}"></span><br />
+																<span
+																	th:text="${order.shippingAddress.shippingAddressZipCode}"></span><br />
+															</div>
+														</div>
+													</div>
+													
+													
+													
+													
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-12">
+												<div class="panel-heading">
+													<h3 class="text-center">
+														<strong>Order Summary</strong>
+													</h3>
+												</div>
+												<div class="panel-body">
+													<div class="table-responsive">
+														<table class="table table-condensed">
+															<thead>
+																<tr>
+																	<td><strong>Item Name</strong></td>
+																	<td class="text-center"><strong>Item
+																			Price</strong></td>
+																	<td class="text-center"><strong>Item
+																			Quantity</strong></td>
+																	<td class="text-right"><strong>Total</strong></td>
+																	<td class="text-right"><strong>Action</strong></td>
+																</tr>
+															</thead>
+															<tbody>
+																<tr th:each="cartItem : ${cartItemList}">
+																	<td data-th-text="${cartItem.product.productName}"></td>
+																	<td class="text-center"
+																		data-th-text="${cartItem.product.productPriceAfterdiscount}"></td>
+																	<td class="text-center" th:value="${qty}" th:text="${qty}"></td>
+																	<td class="text-center"
+																		data-th-text="${cartItem.subtotal}"></td>
+																		<td><a th:href="@{/shoppingCart/removeCartItem(id=${cartItem.id})}"><span
+														th:text="Return"></span></a></td>
+																</tr>
+																
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+	</div>
+	
+	<!-- <div th:replace="common/header :: footer" /> -->
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

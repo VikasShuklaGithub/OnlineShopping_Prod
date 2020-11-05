@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+
+</head>
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+	<div class="container">
+
+		<div class="row" style="margin-bottom: -80px">
+			<div class="col-xs-8">
+				<h2 class="section-headline">
+					<h2 class="section-headline">
+						<span
+							th:text="${user}? ${#strings.toUpperCase(user.username)}: 'Item List'"></span>
+
+					</h2>
+				</h2>
+			</div>
+
+			<div class="col-xs-4">
+				<img src="/image/online_shop_logo.jpg" class="img-responsive"
+					hspace="120" style="height: 120px; border-radius: 80%" />
+			</div>
+		</div>
+
+
+		<!-- <hr style="position:absolute; width:100% height:6px;background-color:#333; z-index:-1; margin-top:-280px" /> -->
+
+		<hr
+			style="position: absolute; width: 90%; height: 2px; background-color: #333; z-index: -1; margin-top: -5px" />
+
+		<img src="/image/header1.jpg" class="img-responsive"
+			style="margin-top: 20px; position: absolute; width: 90%; height: 60px; z-index: -1" />
+
+		<div class="row" style="margin-top: 60px;">
+
+			<div class="col-xs-3">
+				<h3>
+					<label for="category">Category</label>
+				</h3>
+				<div class="list-group" id="category">
+					<a th:href="@{/searchByCategoryByMen(category='All')}"
+						th:classappend="${activeAll}? 'active'" class="list-group-item">All</a>
+					<a th:href="@{/searchByCategoryByMen(category='T-Shirts')}"
+						th:classappend="${activeTshirts}? 'active'"
+						class="list-group-item">T-Shirts</a> <a
+						th:href="@{/searchByCategoryByMen(category='Shirts')}"
+						th:classappend="${activeCasualshirts}? 'active'"
+						class="list-group-item">Shirts</a> <a
+						th:href="@{/searchByCategoryByMen(category='Pants')}"
+						th:classappend="${activeFormalshirts}? 'active'"
+						class="list-group-item">Pants</a> <a
+						th:href="@{/searchByCategoryByMen(category='Jeans')}"
+						th:classappend="${activeJeans}? 'active'" class="list-group-item">Jeans</a>
+					<a th:href="@{/searchByCategoryByMen(category='Suits')}"
+						th:classappend="${activeSuits}? 'active'" class="list-group-item">Suits</a>
+					<a th:href="@{/searchByCategoryByMen(category='Inner Wear')}"
+						th:classappend="${activeInnerWear}? 'active'"
+						class="list-group-item">Inner Wear</a>
+				</div>
+			</div>
+			<div class="col-xs-9">
+
+				<div th:if="${emptyList}">
+					<h4 style="font-size: italic;">No Results Found, Try Something
+						Else or try later</h4>
+				</div>
+
+				<table border="0" id="productList">
+					<thead>
+						<tr>
+							<th></th>
+
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr class="product-item" data-th-each="product : ${productList}">
+							<td>
+								<div th:if="${product != null}">
+									<div class="row" style="margin-bottom: 50px;">
+										<div class="col-xs-3">
+											<a th:href="@{/productDetails?id=}+${product.id}"> <img
+												th:src="@{${product.photImagePath}}"
+												class="img-responsive shelf-book" /></a>
+										</div>
+										<div class="col-xs-9">
+											<a th:href="@{/productDetails?id=}+${product.id}"><h4
+													th:text="${product.productName}"></h4></a> <span
+												th:text="${product.productBrand}"></span>
+											<!-- <p th:text="${book.author}"></p> -->
+											<span th:text="${#strings.capitalize(product.productSize)}"></span></a>
+											<span th:text="${product.productSizeInInch}"><span>
+													inch</span></span><br /> <a th:href="@{/productDetails?id=}+${product.id}"><span
+												style="font-size: x-large; color: #db3208;">RS.<span
+													th:text="${#numbers.formatDecimal(product.productPriceAfterdiscount, 0 , 'COMMA', 2, 'POINT')}"></span></span></a>
+
+											<!-- <span style="text-decoration: line-through;">$<span
+												th:text="${#numbers.formatDecimal(book.listPrice, 0 , 'COMMA', 2, 'POINT')}"></span></span> -->
+
+											<p
+												th:utext="${#strings.abbreviate(product.productDescription, 1000)}"></p>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+
+	<script>		
+		$(document).ready( function () {
+		    $('#productList').DataTable();
+		} );
+	</script>
+
+</body>
+</html>

@@ -32,6 +32,8 @@ public class User extends Auditable<String> implements UserDetails {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/* User Entity */
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

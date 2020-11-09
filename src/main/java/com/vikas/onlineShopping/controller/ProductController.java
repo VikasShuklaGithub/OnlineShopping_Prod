@@ -13,6 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,9 @@ import com.vikas.onlineShopping.service.ProductService;
 
 @Controller
 public class ProductController {
+	
+
+	private static final Logger LOGGER=LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired
 	ProductService productService;
@@ -67,6 +72,8 @@ public class ProductController {
 		 * product.setCreatedDate(dateFormat.format(cal));
 		 */
 		Product saveProduct = productService.save(product);
+		
+		LOGGER.info("MESSAGE LOGGER");
 		
 		String uploadDir="./brand-logos/" +saveProduct.getId();
 		

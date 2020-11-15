@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.mail.SimpleMailMessage;
@@ -89,7 +91,7 @@ public class HomeController {
 	@Autowired
 	OrderRepository orderRepository;
 
-
+	private static final Logger LOGGER=LoggerFactory.getLogger(UserService.class);
 
 	@RequestMapping("/")
 	public String index() {
@@ -687,14 +689,22 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/orderDetail")
-	public String orderDetail(@RequestParam("id") Long orderId, Principal principal, Model model) {
+	public String orderDetail(
+			@RequestParam("id") Long orderId,
+	
+			Principal principal, 
+			Model model) {
 		User user = userService.findByUsername(principal.getName());
+		
+	
 
 		System.out.println("User Name is : " + principal.getName());
 		Order order = orderService.findById(orderId);
 
 		System.out.println("Order Name is : " + orderId);
-
+		
+		
+		
 		if (order.getUser().getId() != user.getId()) {
 			return "badRequestPage";
 		} else {
@@ -702,6 +712,7 @@ public class HomeController {
 			model.addAttribute("cartItemList", cartItemList);
 			model.addAttribute("user", user);
 			model.addAttribute("order", order);
+		
 
 			model.addAttribute("userPaymentList", user.getUserPaymentList());
 			model.addAttribute("userShippingList", user.getUserShippingList());

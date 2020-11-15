@@ -67,17 +67,17 @@
 															</div> 
 														</div>
 													</div> 
-													
+													<!-- 
 													<div class="col-xs-4">
 														<div class="panel panel-default height">
-															<!-- <div class="panel-heading">
+															<div class="panel-heading">
 																<strong>ORDER STATUS</strong>
-															</div> -->
+															</div>
 															 <div class="panel-body">
 																<a class="btn btn-danger" th:href="@{/shoppingCart/removeCartItem(id=${order.id})}">Return/Cancel Item</a>
 															</div> 
 														</div>
-													</div> 
+													</div>  -->
 													
 													<div class="col-xs-4">
 														<div class="panel panel-default height">
@@ -85,7 +85,8 @@
 																<strong>ORDER STATUS</strong>
 															</div>
 															 <div class="panel-body">
-																Delivered
+																<h3><span class="label label-success" id="delivered">Delivered</span></h6>
+																<a class="btn btn-danger" th:href="@{/shoppingCart/removeCartItem(id=${order.id})}">Return Item</a>
 															</div> 
 														</div>
 													</div> 
@@ -118,7 +119,13 @@
 															</thead>
 															<tbody>
 																<tr th:each="cartItem : ${cartItemList}">
-																	<td data-th-text="${cartItem.product.productName}"></td>
+																<td>
+																<a th:href="@{/productDetails(id=${cartItem.product.id})}">
+															<span data-th-text="${cartItem.product.productName}"></span>
+															</a>
+																</td>
+																
+																	<!-- <td data-th-text="${cartItem.product.productName}"></td> -->
 																	<td class="text-center"
 																		data-th-text="${cartItem.product.productPriceAfterdiscount}"></td>
 																	<td class="text-center" data-th-text="${cartItem.qty}"></td>

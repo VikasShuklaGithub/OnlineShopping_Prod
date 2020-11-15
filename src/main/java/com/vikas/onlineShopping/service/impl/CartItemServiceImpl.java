@@ -3,6 +3,8 @@ package com.vikas.onlineShopping.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +21,12 @@ import com.vikas.onlineShopping.repository.CartItemRepository;
 
 import com.vikas.onlineShopping.repository.ReturnFromCartItemRepository;
 import com.vikas.onlineShopping.service.CartItemService;
+import com.vikas.onlineShopping.service.UserService;
 
 @Service
 public class CartItemServiceImpl implements CartItemService {
+	
+	private static final Logger LOGGER=LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
 	private CartItemRepository cartItemRepository;
@@ -43,7 +48,7 @@ public class CartItemServiceImpl implements CartItemService {
 		BigDecimal bigDecimal = new BigDecimal(cartItem.getProduct().getProductPriceAfterdiscount())
 				.multiply(new BigDecimal(cartItem.getQty()));
 
-		System.out.println("Cart Item Update Big Decdimal 2 : " + bigDecimal);
+		LOGGER.info("Cart Item Update Big Decdimal 2 : " + bigDecimal);
 
 		bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP);
 		System.out.println("Cart Item Update Big Decdimal 1 : " + bigDecimal);
@@ -52,7 +57,7 @@ public class CartItemServiceImpl implements CartItemService {
 
 		cartItemRepository.save(cartItem);
 
-		System.out.println("Cart Item Update Data : " + cartItem);
+		LOGGER.info("Cart Item Update Data : " + cartItem);
 
 		return cartItem;
 
@@ -63,8 +68,8 @@ public class CartItemServiceImpl implements CartItemService {
 
 		List<CartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
 
-		System.out.println("cartItemList : :" + cartItemList);
-		System.out.println("user.getShoppingCart() _ 1 : : " + user.getShoppingCart());
+		LOGGER.info("cartItemList : :" + cartItemList);
+		LOGGER.info("user.getShoppingCart() _ 1 : : " + user.getShoppingCart());
 
 		for (CartItem cartItem : cartItemList) {
 			System.out.println("ONE");
@@ -86,21 +91,21 @@ public class CartItemServiceImpl implements CartItemService {
 		CartItem cartItem = new CartItem();
 
 		cartItem.setShoppingCart(user.getShoppingCart());
-		System.out.println("user.getShoppingCart() : " + user.getShoppingCart());
+		LOGGER.info("user.getShoppingCart() : " + user.getShoppingCart());
 		cartItem.setProduct(product);
-		System.out.println("Product is : " + product);
+		LOGGER.info("Product is : " + product);
 		cartItem.setQty(qty);
 
-		System.out.println("Quantity is : " + qty);
+		LOGGER.info("Quantity is : " + qty);
 		cartItem.setSubtotal(new BigDecimal(product.getProductPriceAfterdiscount()).multiply(new BigDecimal(qty)));
-		System.out.println("SUBTOTAL : " + product.getProductPriceAfterdiscount());
+		LOGGER.info("SUBTOTAL : " + product.getProductPriceAfterdiscount());
 		cartItem = cartItemRepository.save(cartItem);
 
 		BookToCartItem bookToCartItem = new BookToCartItem();
 		bookToCartItem.setProduct(product);
-		System.out.println("BooktoCArtItem Product : " + product);
+		LOGGER.info("BooktoCartItem Product : " + product);
 		bookToCartItem.setCartItem(cartItem);
-		System.out.println("BooktoCArtItem cartItem : " + cartItem);
+		LOGGER.info("BooktoCArtItem cartItem : " + cartItem);
 		bookToCartItemRepository.save(bookToCartItem);
 
 		return cartItem;
@@ -112,8 +117,8 @@ public class CartItemServiceImpl implements CartItemService {
 
 		List<CartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
 
-		System.out.println("cartItemList : :" + cartItemList);
-		System.out.println("user.getShoppingCart() _ 1 : : " + user.getShoppingCart());
+		LOGGER.info("cartItemList : :" + cartItemList);
+		LOGGER.info("user.getShoppingCart() _ 1 : : " + user.getShoppingCart());
 
 
 		ReturnFromCartItem returnFromCartItem = new ReturnFromCartItem();

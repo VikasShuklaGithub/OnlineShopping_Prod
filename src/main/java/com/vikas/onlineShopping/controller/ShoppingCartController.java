@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,6 +52,8 @@ public class ShoppingCartController {
 	
 	@Autowired
 	private ReturnFromCartItemService returnFromCartItemService;
+	
+	private static final Logger LOGGER=LoggerFactory.getLogger(UserService.class);
 
 	CartItem cartItem;
 
@@ -90,10 +94,10 @@ public class ShoppingCartController {
 
 	{
 		User user = userService.findByUsername(principal.getName());
-		System.out.println("User is Add To CartItem :" + user);
+		LOGGER.info("User is Add To CartItem :" + user);
 
 		product = productService.findbyId(product.getId());
-		System.out.println("Product is Add To CartItem :" + user);
+		LOGGER.info("Product is Add To CartItem :" + user);
 
 		if (Integer.parseInt(qty) > product.getInStockNumber()) {
 			model.addAttribute("notEnoughStock", true);
@@ -121,16 +125,16 @@ public class ShoppingCartController {
 		
 		
 		user = userService.findByUsername(principal.getName());
-		System.out.println("User is remove To CartItem :" + principal.getName());
+		LOGGER.info("User is remove To CartItem :" + principal.getName());
 
 		product = productService.findbyId(product.getId());
-		System.out.println("Product is Removed To CartItem :" + product.getId());
+		LOGGER.info("Product is Removed To CartItem :" + product.getId());
 
 		order = orderService.findById(order.getId());
-		System.out.println("Order Remove is : " + order.getId());
+		LOGGER.info("Order Remove is : " + order.getId());
 		
 		cartItem=cartItemService.findById(cartItem.getId());
-		System.out.println("Order Remove is : " + cartItem.getId());
+		LOGGER.info("Order Remove is : " + cartItem.getId());
 		
 		int qty = cartItem.getQty();
 		

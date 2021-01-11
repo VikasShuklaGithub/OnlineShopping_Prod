@@ -18,15 +18,16 @@ import com.vikas.onlineShopping.model.ShoppingCart;
 import com.vikas.onlineShopping.model.User;
 import com.vikas.onlineShopping.repository.BookToCartItemRepository;
 import com.vikas.onlineShopping.repository.CartItemRepository;
-
+import com.vikas.onlineShopping.repository.OrderRepository;
 import com.vikas.onlineShopping.repository.ReturnFromCartItemRepository;
 import com.vikas.onlineShopping.service.CartItemService;
+import com.vikas.onlineShopping.service.OrderService;
 import com.vikas.onlineShopping.service.UserService;
 
 @Service
 public class CartItemServiceImpl implements CartItemService {
-	
-	private static final Logger LOGGER=LoggerFactory.getLogger(UserService.class);
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
 	private CartItemRepository cartItemRepository;
@@ -36,6 +37,12 @@ public class CartItemServiceImpl implements CartItemService {
 
 	@Autowired
 	private ReturnFromCartItemRepository returnFromCartItemRepository;
+
+	@Autowired
+	private OrderService orderService;
+
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public List<CartItem> findByShoppingCart(ShoppingCart shoppingCart) {
@@ -112,39 +119,48 @@ public class CartItemServiceImpl implements CartItemService {
 
 	}
 
+	/*
+	 * @Override public CartItem addToReturnProductFromCartItem(Product product,
+	 * User user, Order order,CartItem cartItem, int qty) {
+	 * 
+	 * List<CartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
+	 * 
+	 * LOGGER.info("cartItemList : :" + cartItemList);
+	 * LOGGER.info("user.getShoppingCart() _ 1 : : " + user.getShoppingCart());
+	 * 
+	 * 
+	 * ReturnFromCartItem returnFromCartItem = new ReturnFromCartItem();
+	 * 
+	 * returnFromCartItem.setProduct(product);
+	 * System.out.println("removeFromCartItem Product : " + product);
+	 * 
+	 * returnFromCartItem.setOrder(order);
+	 * System.out.println("removeFromCartItem Order : " + order);
+	 * 
+	 * returnFromCartItem.setCartItem(cartItem);
+	 * System.out.println("removeFromCartItem cartItem : " + cartItem);
+	 * 
+	 * returnFromCartItem.setUser(user);
+	 * System.out.println("removeFromCartItem User : " + user);
+	 * 
+	 * returnFromCartItem.setReturnStatus("Pending Return Process");
+	 * 
+	 * returnFromCartItemRepository.save(returnFromCartItem); return cartItem;
+	 * 
+	 * }
+	 */
+
 	@Override
-	public CartItem addToReturnProductFromCartItem(Product product, User user, Order order,CartItem cartItem, int qty) {
-
+	public CartItem changeOrderStatus(Product product, User user, Order order, CartItem cartItem) {
 		List<CartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
+		order = cartItem.getOrder();
+		product = cartItem.getProduct();
+		user = order.getUser();
 
-		LOGGER.info("cartItemList : :" + cartItemList);
-		LOGGER.info("user.getShoppingCart() _ 1 : : " + user.getShoppingCart());
+		order.setOrderStatus("Return Pending");
 
-
-		ReturnFromCartItem returnFromCartItem = new ReturnFromCartItem();
-		
-		returnFromCartItem.setProduct(product);
-		System.out.println("removeFromCartItem Product : " + product);
-		
-		returnFromCartItem.setOrder(order);
-		System.out.println("removeFromCartItem Order : " + order);
-		
-		returnFromCartItem.setCartItem(cartItem);
-		System.out.println("removeFromCartItem cartItem : " + cartItem);
-		
-		returnFromCartItem.setUser(user);
-		System.out.println("removeFromCartItem User : " + user);
-		
-		returnFromCartItem.setReturnStatus("Hold");
-
-		returnFromCartItemRepository.save(returnFromCartItem);
 		return cartItem;
-
 	}
-	
-
-	
-	
 
 	@Override
 	public CartItem findById(Long cartItemId) {
@@ -176,20 +192,20 @@ public class CartItemServiceImpl implements CartItemService {
 	@Override
 	public CartItem approveAddToReturnProductFromCartItem(User user, Product product, Order order, CartItem cartItem,
 			int qty) {
-		
-		List<CartItem> cartItemList=findByShoppingCart(user.getShoppingCart());
-		
-		System.out.println("approveAddToReturnProductFromCartItem : "+cartItemList);
-		
-		ReturnFromCartItem returnFromCartItem=new ReturnFromCartItem();
-		
+
+		List<CartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
+
+		System.out.println("approveAddToReturnProductFromCartItem : " + cartItemList);
+
+		ReturnFromCartItem returnFromCartItem = new ReturnFromCartItem();
+
 		returnFromCartItem.setProduct(product);
 		returnFromCartItem.setOrder(order);
-		
+
 		returnFromCartItem.setCartItem(cartItem);
 		returnFromCartItem.setUser(user);
 		returnFromCartItem.setReturnStatus("Approved");
-		
+
 		returnFromCartItemRepository.save(returnFromCartItem);
 		// TODO Auto-generated method stub
 		return cartItem;

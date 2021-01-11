@@ -65,7 +65,7 @@ $(document).ready(function() {
 //    })
 	
 	$('#deleteSelected').click(function() {
-		var idList= $('.checkboxBook');
+		var idList= $('.checkboxProduct');
 		var productIdlist=[];
 		for (var i = 0; i < idList.length; i++) {
 			if(idList[i].checked==true) {
@@ -112,9 +112,9 @@ $(document).ready(function() {
 	
 	$("#selectAllProduct").click(function() {
 		if($(this).prop("checked")==true) {
-			$(".checkboxBook").prop("checked",true);
+			$(".checkboxProduct").prop("checked",true);
 		} else if ($(this).prop("checked")==false) {
-			$(".checkboxBook").prop("checked",false);
+			$(".checkboxProduct").prop("checked",false);
 		}
 	})
 });

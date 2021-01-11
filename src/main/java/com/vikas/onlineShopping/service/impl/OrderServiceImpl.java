@@ -1,5 +1,6 @@
  package com.vikas.onlineShopping.service.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import com.vikas.onlineShopping.model.User;
 import com.vikas.onlineShopping.repository.OrderRepository;
 import com.vikas.onlineShopping.service.CartItemService;
 import com.vikas.onlineShopping.service.OrderService;
+import com.vikas.onlineShopping.utilities.Condition;
 
 
 
@@ -127,5 +129,25 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		return orderRepository.findById(id).orElse(null) ;
 	}
+
+
+
+	@Override
+	public Order saveOrder(Order order) {
+		// TODO Auto-generated method stub
+		return orderRepository.save(order);
+	}
+
+
+
+	@Override
+	public List<Order> findAllOrder() {
+		// TODO Auto-generated method stub
+		return orderRepository.findAll();
+	}
+
+
+
+	
 
 }

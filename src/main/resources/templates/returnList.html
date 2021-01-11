@@ -14,7 +14,7 @@
 
 <div class="container">
 
-<form class="form-horizontal" th:action="@{/shoppingCart/removeCartItemApproved}"
+<form class="form-horizontal" th:action="@{/shoppingCart/returnFromCartItemList}"
 				method="post">
 
 		<div class="table-responsive">
@@ -24,44 +24,80 @@
 					<tr>
 						<th><input th:id="selectAllProduct" type="checkbox"> 
 						
-						<th>UserName</th>	
+						<!-- <th>UserName</th>	
 						<th>Contact</th>	
 						<th>Email</th>
 						<th>Product</th>						
 						<th>Code</th>
-						<th>Price</th>
-						<th>Quantity</th>
-						<th>Order ID</th>														
+						<th>Price</th> -->
+					<!-- 	<th>Quantity</th> -->
+				
+						<th>Order ID</th>	
+																	
 						<th>Ordered Date</th>
+						<th>STATUS</th>		
 				
 					</tr>
 
 				</thead>
 
 				<tbody>
-					<tr data-th-each="returnFromCartItem: ${returnFromCartItemList}">
+					<tr th:each="order : ${orderList}">
+					<td></td>
+													<td><a th:href="@{/returnFromCartItemList(id=${order.id})}">
+															<span th:text="${order.id}"></span>
+													</a></td>
+												
 					
-			 	<td>
-						<input hidden="hidden" name="id" th:value="${returnFromCartItem.product.id}">
+					<!-- <td>
+						<input hidden="hidden" name="id" th:value="${order.id}">
+						//<input th:id="'selected'+${product.id}" class="checkboxProduct" type="checkbox" />
 					</td> 
-						<td th:text="${returnFromCartItem.user.username}"></td>
-						<td th:text="${returnFromCartItem.user.phone}"></td>
-						<td th:text="${returnFromCartItem.user.email}"></td>
-						<td th:text="${returnFromCartItem.product.productName}"></td>
-						<td th:text="${returnFromCartItem.product.productCode}"></td>
-						<td th:text="${returnFromCartItem.product.productPriceAfterdiscount}"></td>
-						<td th:text="${returnFromCartItem.cartItem.qty}"></td>
-						
-						<td th:text="${returnFromCartItem.order.id}"></td>
-						<td th:text="${returnFromCartItem.order.orderDate}"></td>
-						<td>
-						<input hidden="hidden" name="id" th:value="${returnFromCartItem.product.id}">
-						<button type="submit" class="btn btn-default">Return</button>
-						
-						
-						
-						</td>
-					</tr>
+					
+					<td data-th-text="${user.firstName + ' '+ user.lastName}">
+					<td data-th-text="${user.phone}">
+					<td data-th-text="${user.email}">
+					
+					<td>
+														<p th:each="cartItem : ${order.cartItemList}">
+															<a th:href="@{/productDetails(id=${cartItem.product.id})}">
+															<span data-th-text="${cartItem.product.productName}"></span>
+															</a>
+														</p>
+													</td>
+													
+													<td>
+														<p th:each="cartItem : ${order.cartItemList}">
+															<a th:href="@{/productDetails(id=${cartItem.product.id})}">
+															<span data-th-text="${cartItem.product.productCode}"></span>
+															</a>
+														</p>
+													</td>
+													
+													<td>
+														<p th:each="cartItem : ${order.cartItemList}">
+															<a th:href="@{/productDetails(id=${cartItem.product.id})}">
+															<span data-th-text="${cartItem.product.productPrice}"></span>
+															</a>
+														</p>
+													</td>
+					 -->
+					
+												
+													
+													
+													
+													<td data-th-text="${order.orderDate}"></td>
+													<td data-th-text="${order.orderStatus}"></td>
+
+													
+
+
+													<!-- <td data-th-text="${order.orderTotal}"></td>
+													<td data-th-text="${order.orderStatus}"></td> -->
+													<!-- <td><a th:href="@{/returnProduct(id=${order.id})}"><span
+															th:text="Return"></span></a></td> -->
+												</tr>
 				</tbody>
 				
 				</table>

@@ -44,18 +44,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/fonts/**",
 			"/menPage","/womenPage","/kidPage","/facebookLogin","/facebook","/facebookprofiledata/**",
 			"/productDetails/**",
-			"/returnProduct/**",
+			
 			"/faq",
+			
+			"/returnFromCartItemList/", 
 			"/hours"
 	};
 	
 protected void configure(HttpSecurity http) throws Exception
 {
 	http.authorizeRequests()
-				/*
-				 * .antMatchers("/remove/**").hasAuthority("ROLE_ADMIN")
-				 * .antMatchers("/updateProduct/**").hasAuthority("ROLE_ADMIN")
-				 */
+				
+				 // .antMatchers("/remove/**").hasAuthority("ROLE_ADMIN")
+				  .antMatchers("/shoppingCart/returnFromCartItemList/**").hasAuthority("ROLE_ADMIN")
+				 
 	.antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
 	http.csrf().disable().cors().disable().formLogin().failureUrl("/login?error").defaultSuccessUrl("/").loginPage("/login").permitAll()
 	.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

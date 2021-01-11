@@ -28,7 +28,8 @@ public interface CartItemService {
 	List<CartItem> findByOrder(Order order);
 
 
-	CartItem addToReturnProductFromCartItem(Product product, User user, Order order, CartItem cartItem ,int qty);
+	//CartItem addToReturnProductFromCartItem(Product product, User user, Order order, CartItem cartItem ,int qty);
 	CartItem approveAddToReturnProductFromCartItem(User user,Product product,Order order,CartItem cartItem ,int qty);
+	CartItem changeOrderStatus(Product product, User user, Order order,CartItem cartItem);
 
 }

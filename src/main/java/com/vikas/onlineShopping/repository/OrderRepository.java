@@ -19,6 +19,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 	
 	@Query("from Order where orderDate=:orderDate")
 	List<Order> findOrder(@Param("orderDate")Date orderDate);
+
+
+	
 	
 
      
